@@ -10,16 +10,10 @@ env:
 jobs:
   include:
     - stage: test
-      node_js: "16"
+      node_js: "12"
       os: linux
       before_script: npm run lint || exit 1;
       after_success: npm run-script coverage;
-    - stage: platform-test
-      node_js: "14"
-      os: linux
-    - stage: platform-test
-      node_js: "12"
-      os: linux
     - stage: platform-test
       node_js: "10"
       os: linux
