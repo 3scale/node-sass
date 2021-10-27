@@ -1,5 +1,5 @@
 language: node_js
-arch: ppc64le
+os: linux
 dist: xenial
 compiler: gcc
 
@@ -11,12 +11,20 @@ jobs:
   include:
     - stage: test
       node_js: "12"
-      os: linux
+      arch: ppc64le
       before_script: npm run lint || exit 1;
       after_success: npm run-script coverage;
     - stage: platform-test
       node_js: "10"
-      os: linux
+      arch: ppc64le
+    - stage: test
+      node_js: "12"
+      arch: s390x
+      before_script: npm run lint || exit 1;
+      after_success: npm run-script coverage;
+    - stage: platform-test
+      node_js: "10"
+      arch: s390x
 
 addons:
   apt:
@@ -42,9 +50,9 @@ before_install:
         export CXX="g++-4.9";
         export LINK="gcc-4.9";
         export LINKXX="g++-4.9";
-      fi    
+      fi
     fi
-    
+
   - nvm --version
   - node --version
   - npm --version
