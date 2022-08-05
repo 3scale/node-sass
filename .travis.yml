@@ -15,6 +15,12 @@ jobs:
       before_script: npm run lint || exit 1;
       after_success: npm run-script coverage;
     - stage: platform-test
+      node_js: "14.0.0"
+      os: linux
+    - stage: platform-test
+      node_js: "12"
+      os: linux
+    - stage: platform-test
       node_js: "10"
       os: linux
 
@@ -23,16 +29,16 @@ addons:
     sources:
       - ubuntu-toolchain-r-test
     packages:
-      - gcc-4.9
-      - g++-4.9
       - gcc-6
       - g++-6
+      - gcc-4.9
+      - g++-4.9
 
 before_install:
   - echo $TRAVIS_NODE_VERSION
   - npm config set python `which python`
   - if [ $TRAVIS_OS_NAME == "linux" ]; then
-      if [[ $(node -v) =~ v1[23456] ]]; then
+      if [[ $(node -v) =~ v1[24] ]]; then
         export CC="gcc-6";
         export CXX="g++-6";
         export LINK="gcc-6";
